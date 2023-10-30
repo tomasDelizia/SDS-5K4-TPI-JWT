@@ -4,9 +4,10 @@ import ar.com.lupibuddies.springapi.token.entity.Token;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface TokenDAO {
-    List<Token> findTokensValidosDeUsuario(Integer idUsuario);
+    List<Token> findTokensValidosDeUsuario(UUID idUsuario);
 
     Optional<Token> findByToken(String token);
     void save(Token token);

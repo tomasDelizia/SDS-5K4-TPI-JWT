@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -49,7 +50,7 @@ public class TokenService {
         tokenDAO.save(token);
     }
 
-    private void revocarTokensDeUsuario(Integer idUsuario) {
+    private void revocarTokensDeUsuario(UUID idUsuario) {
         List<Token> tokensValidos = tokenDAO.findTokensValidosDeUsuario(idUsuario);
         if (tokensValidos.isEmpty()) {
             return;

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ public class TokenPostgresDataAcessService implements TokenDAO {
     private final TokenRepository tokenRepository;
 
     @Override
-    public List<Token> findTokensValidosDeUsuario(Integer idUsuario) {
+    public List<Token> findTokensValidosDeUsuario(UUID idUsuario) {
         return tokenRepository.findTokensValidosDeUsuario(idUsuario);
     }
 

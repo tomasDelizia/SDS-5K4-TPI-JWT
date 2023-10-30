@@ -2,14 +2,11 @@ package ar.com.lupibuddies.springapi.usuario.entity;
 
 import ar.com.lupibuddies.springapi.token.entity.Token;
 import ar.com.lupibuddies.springapi.usuario.enums.Rol;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,13 +19,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 @AllArgsConstructor
 @Entity
 public class Usuario implements UserDetails {
-
   @Id
-  @GeneratedValue
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
+
   private String nombre;
+
   private String apellido;
+
   private String email;
+
   private String password;
 
   @Enumerated(EnumType.STRING)

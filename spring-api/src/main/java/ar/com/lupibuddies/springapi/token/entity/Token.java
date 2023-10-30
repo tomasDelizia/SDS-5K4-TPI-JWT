@@ -2,16 +2,10 @@ package ar.com.lupibuddies.springapi.token.entity;
 
 import ar.com.lupibuddies.springapi.token.enums.TipoToken;
 import ar.com.lupibuddies.springapi.usuario.entity.Usuario;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -20,10 +14,9 @@ import lombok.*;
 @AllArgsConstructor
 @Entity
 public class Token {
-
   @Id
-  @GeneratedValue
-  public Integer id;
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 
   @Column(unique = true)
   public String token;

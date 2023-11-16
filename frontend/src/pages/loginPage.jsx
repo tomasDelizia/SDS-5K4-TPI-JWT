@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Container, TextField } from "@mui/material";
+import { Typography, Container, TextField, Button } from "@mui/material";
 import axios from "axios";
-
 const LoginPage = () => {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   const [animationClass, setAnimationClass] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
   });
-
-  const handleChange = (e) => {
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,14 +21,20 @@ const LoginPage = () => {
         credentials
       );
       const { access_token, refresh_token } = response.data;
-
-      // Store the tokens in localStorage or secure cookie for later use
       localStorage.setItem("token", access_token);
       localStorage.setItem("refreshToken", refresh_token);
       console.log("token:", access_token);
       console.log(refresh_token);
+
+      // Redirigir a la página de bienvenida
+      window.location.href = "/welcomePage";
     } catch (error) {
-      // Handle login error
+      console.error("Error:", error.response);
+
+      // Mostrar mensaje de error
+      setErrorMessage(
+        "Credenciales incorrectas. Por favor, inténtelo de nuevo."
+      );
     }
   };
 
@@ -163,8 +162,14 @@ const LoginPage = () => {
             setCredentials({ ...credentials, password: e.target.value })
           }
         />
-
-        <button type="submit">Login</button>
+        <Button type="submit" variant="contained" sx={{ marginTop: "15px" }}>
+          Iniciar Sesión
+        </Button>{" "}
+        {errorMessage && (
+          <Typography sx={{ marginTop: "20px" }} variant="body2" color="error">
+            {errorMessage}
+          </Typography>
+        )}
       </form>
     </Container>
   );

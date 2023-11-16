@@ -7,4 +7,6 @@ import java.util.Optional;
 public interface UsuarioDAO {
     Optional<Usuario> findByEmail(String email);
     void save(Usuario usuario);
+
+    boolean existsByEmail(String email);
 }

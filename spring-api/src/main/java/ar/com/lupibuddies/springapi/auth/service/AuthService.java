@@ -3,6 +3,7 @@ package ar.com.lupibuddies.springapi.auth.service;
 import ar.com.lupibuddies.springapi.auth.dto.AuthRequest;
 import ar.com.lupibuddies.springapi.auth.dto.AuthResponse;
 import ar.com.lupibuddies.springapi.auth.dto.RegistroRequest;
+import ar.com.lupibuddies.springapi.exceptions.RecursoDuplicadoException;
 import ar.com.lupibuddies.springapi.token.service.TokenService;
 import ar.com.lupibuddies.springapi.usuario.entity.Usuario;
 import ar.com.lupibuddies.springapi.usuario.service.UsuarioService;
@@ -27,6 +28,9 @@ public class AuthService {
   private final AuthenticationManager authenticationManager;
 
   public AuthResponse registrar(RegistroRequest request) {
+    if (usuarioService.existsByEmail(request.getEmail())) {
+      throw new RecursoDuplicadoException("El usuario ya existe.");
+    }
     Usuario usuario = Usuario.builder()
         .nombre(request.getNombre())
         .apellido(request.getApellido())

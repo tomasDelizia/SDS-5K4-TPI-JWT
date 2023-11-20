@@ -41,4 +41,8 @@ public class UsuarioService {
         return usuarioDAO.findByEmail(email)
                 .orElseThrow(() -> new RecursoNoEncontradoException("Usuario no encontrado."));
     }
+
+    public boolean existsByEmail(String email) {
+        return usuarioDAO.existsByEmail(email);
+    }
 }

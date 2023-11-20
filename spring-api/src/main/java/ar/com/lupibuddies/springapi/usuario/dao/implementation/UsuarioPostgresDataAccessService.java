@@ -22,4 +22,9 @@ public class UsuarioPostgresDataAccessService implements UsuarioDAO {
     public void save(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return usuarioRepository.existsByEmail(email);
+    }
 }

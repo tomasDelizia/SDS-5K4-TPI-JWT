@@ -27,7 +27,6 @@ const LoginPage = () => {
       console.log(refresh_token);
 
       // Redirigir a la página de bienvenida
-      window.location.href = "/welcomePage";
     } catch (error) {
       console.error("Error:", error.response);
 

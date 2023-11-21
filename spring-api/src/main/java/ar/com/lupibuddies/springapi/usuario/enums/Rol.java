@@ -13,10 +13,6 @@ import static ar.com.lupibuddies.springapi.usuario.enums.Permiso.ADMIN_CREATE;
 import static ar.com.lupibuddies.springapi.usuario.enums.Permiso.ADMIN_DELETE;
 import static ar.com.lupibuddies.springapi.usuario.enums.Permiso.ADMIN_READ;
 import static ar.com.lupibuddies.springapi.usuario.enums.Permiso.ADMIN_UPDATE;
-import static ar.com.lupibuddies.springapi.usuario.enums.Permiso.MANAGER_CREATE;
-import static ar.com.lupibuddies.springapi.usuario.enums.Permiso.MANAGER_DELETE;
-import static ar.com.lupibuddies.springapi.usuario.enums.Permiso.MANAGER_READ;
-import static ar.com.lupibuddies.springapi.usuario.enums.Permiso.MANAGER_UPDATE;
 
 @Getter
 @RequiredArgsConstructor
@@ -28,19 +24,7 @@ public enum Rol {
                   ADMIN_READ,
                   ADMIN_UPDATE,
                   ADMIN_DELETE,
-                  ADMIN_CREATE,
-                  MANAGER_READ,
-                  MANAGER_UPDATE,
-                  MANAGER_DELETE,
-                  MANAGER_CREATE
-          )
-  ),
-  MANAGER(
-          Set.of(
-                  MANAGER_READ,
-                  MANAGER_UPDATE,
-                  MANAGER_DELETE,
-                  MANAGER_CREATE
+                  ADMIN_CREATE
           )
   );
 

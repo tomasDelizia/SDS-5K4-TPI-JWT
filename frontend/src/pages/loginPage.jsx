@@ -25,6 +25,7 @@ const LoginPage = () => {
       localStorage.setItem("refreshToken", refresh_token);
       console.log("token:", access_token);
       console.log(refresh_token);
+      window.location.href = "/libraryPage";
 
       // Redirigir a la página de bienvenida
     } catch (error) {

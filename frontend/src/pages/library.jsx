@@ -14,6 +14,8 @@ import {
 
 import { useEffect } from "react";
 
+import { jwtDecode } from "jwt-decode";
+
 const Library = () => {
   const [rowss, setRowss] = useState([]);
   const [newRow, setNewRow] = useState({
@@ -30,9 +32,15 @@ const Library = () => {
     setNewRow({ ...newRow, [name]: value });
   };
 
+  const esAdmin = () => {
+    const authToken = localStorage.getItem("token");
+    const decoded = jwtDecode(authToken);
+    const esAdmin = decoded.custom_claims.includes("ROLE_ADMIN");
+    return esAdmin;
+  }
+
   const getBooks = async () => {
     const authToken = localStorage.getItem("token");
-
     try {
       const response = await fetch("http://localhost:8080/v1/libros", {
         method: "GET",
@@ -156,7 +164,10 @@ const Library = () => {
               <TableCell>ISBN</TableCell>
               <TableCell>Título</TableCell>
               <TableCell>Autor</TableCell>
-              <TableCell>Acciones</TableCell>
+              <TableCell>Editorial</TableCell>
+              <TableCell>Fecha Lanzamiento</TableCell>
+             {esAdmin() ? <TableCell>Acciones</TableCell> : <TableCell></TableCell>} 
+              
             </TableRow>
           </TableHead>
           <TableBody>
@@ -165,7 +176,9 @@ const Library = () => {
                 <TableCell>{row.isbn}</TableCell>
                 <TableCell>{row.titulo}</TableCell>
                 <TableCell>{row.autor}</TableCell>
-                <TableCell>
+                <TableCell>{row.editorial}</TableCell>
+                <TableCell>{row.fechaLanzamiento}</TableCell>
+                {esAdmin() ? <TableCell>
                   <Button
                     variant="contained"
                     color="secondary"
@@ -173,14 +186,15 @@ const Library = () => {
                   >
                     Eliminar
                   </Button>
-                </TableCell>
+                </TableCell> : <TableCell></TableCell>}
+                
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
       {/* Formulario para agregar un nuevo libro  */}
-      <form onSubmit={handleSubmit}>
+      {esAdmin() ? <form onSubmit={handleSubmit}>
         <TextField
           sx={{
             backgroundColor: "gray",
@@ -251,7 +265,8 @@ const Library = () => {
         <Button type="submit" variant="contained" sx={{ marginTop: "15px" }}>
           Agregar
         </Button>
-      </form>
+      </form> : <h2></h2>}
+      
     </Container>
   );
 };

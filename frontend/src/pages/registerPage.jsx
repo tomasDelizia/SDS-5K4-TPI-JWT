@@ -37,12 +37,17 @@ const RegisterPage = () => {
         }),
       });
 
+      if (response.status === 500) {
+        console.log("Error 400");
+      }
+
       if (!response.ok) {
         const errorMessage = await response.text();
         throw new Error(`Registration failed: ${errorMessage}`);
       }
 
       console.log("Registration successful!");
+      window.location.href = "/";
     } catch (error) {
       console.error(error.message);
     }

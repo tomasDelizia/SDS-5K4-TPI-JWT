@@ -37,7 +37,7 @@ const Library = () => {
     const decoded = jwtDecode(authToken);
     const esAdmin = decoded.custom_claims.includes("ROLE_ADMIN");
     return esAdmin;
-  }
+  };
 
   const getBooks = async () => {
     const authToken = localStorage.getItem("token");
@@ -156,7 +156,7 @@ const Library = () => {
         minWidth: "100%",
       }}
     >
-      <h1>Cargue sus libros aquí</h1>
+      <h2>Listado de libros</h2>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -166,8 +166,11 @@ const Library = () => {
               <TableCell>Autor</TableCell>
               <TableCell>Editorial</TableCell>
               <TableCell>Fecha Lanzamiento</TableCell>
-             {esAdmin() ? <TableCell>Acciones</TableCell> : <TableCell></TableCell>} 
-              
+              {esAdmin() ? (
+                <TableCell>Acciones</TableCell>
+              ) : (
+                <TableCell></TableCell>
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -178,95 +181,102 @@ const Library = () => {
                 <TableCell>{row.autor}</TableCell>
                 <TableCell>{row.editorial}</TableCell>
                 <TableCell>{row.fechaLanzamiento}</TableCell>
-                {esAdmin() ? <TableCell>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => handleDelete(row.id)}
-                  >
-                    Eliminar
-                  </Button>
-                </TableCell> : <TableCell></TableCell>}
-                
+                {esAdmin() ? (
+                  <TableCell>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() => handleDelete(row.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </TableCell>
+                ) : (
+                  <TableCell></TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
       {/* Formulario para agregar un nuevo libro  */}
-      {esAdmin() ? <form onSubmit={handleSubmit}>
-        <TextField
-          sx={{
-            backgroundColor: "gray",
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "15px",
-            width: { xs: "200px", lg: "500px" },
-          }}
-          label="ISBN"
-          name="isbn"
-          value={newRow.isbn}
-          onChange={handleInputChange}
-        />
-        <TextField
-          sx={{
-            backgroundColor: "gray",
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "15px",
-            width: { xs: "200px", lg: "500px" },
-          }}
-          label="Editorial"
-          name="editorial"
-          value={newRow.editorial}
-          onChange={handleInputChange}
-        />
-        <TextField
-          sx={{
-            backgroundColor: "gray",
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "15px",
-            width: { xs: "200px", lg: "500px" },
-          }}
-          label="Título"
-          name="titulo"
-          value={newRow.titulo}
-          onChange={handleInputChange}
-        />
-        <TextField
-          sx={{
-            backgroundColor: "gray",
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "15px",
-            width: { xs: "200px", lg: "500px" },
-          }}
-          label="Autor"
-          name="autor"
-          value={newRow.autor}
-          onChange={handleInputChange}
-        />
+      {esAdmin() ? (
+        <form onSubmit={handleSubmit}>
+          <TextField
+            sx={{
+              backgroundColor: "gray",
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "15px",
+              width: { xs: "200px", lg: "500px" },
+            }}
+            label="ISBN"
+            name="isbn"
+            value={newRow.isbn}
+            onChange={handleInputChange}
+          />
+          <TextField
+            sx={{
+              backgroundColor: "gray",
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "15px",
+              width: { xs: "200px", lg: "500px" },
+            }}
+            label="Editorial"
+            name="editorial"
+            value={newRow.editorial}
+            onChange={handleInputChange}
+          />
+          <TextField
+            sx={{
+              backgroundColor: "gray",
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "15px",
+              width: { xs: "200px", lg: "500px" },
+            }}
+            label="Título"
+            name="titulo"
+            value={newRow.titulo}
+            onChange={handleInputChange}
+          />
+          <TextField
+            sx={{
+              backgroundColor: "gray",
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "15px",
+              width: { xs: "200px", lg: "500px" },
+            }}
+            label="Autor"
+            name="autor"
+            value={newRow.autor}
+            onChange={handleInputChange}
+          />
 
-        <TextField
-          sx={{
-            backgroundColor: "gray",
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "15px",
-            width: { xs: "200px", lg: "500px" },
-          }}
-          label="Fecha de Lanzamiento"
-          name="fechaLanzamiento"
-          value={newRow.fechaLanzamiento}
-          onChange={handleInputChange}
-        />
+          <TextField
+            sx={{
+              backgroundColor: "gray",
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "15px",
+              width: { xs: "200px", lg: "500px" },
+            }}
+            label="Fecha de Lanzamiento"
+            name="fechaLanzamiento"
+            value={newRow.fechaLanzamiento}
+            onChange={handleInputChange}
+          />
 
-        <Button type="submit" variant="contained" sx={{ marginTop: "15px" }}>
-          Agregar
-        </Button>
-      </form> : <h2></h2>}
-      
+          <Button type="submit" variant="contained" sx={{ marginTop: "15px" }}>
+            Agregar
+          </Button>
+        </form>
+      ) : (
+        // eslint-disable-next-line jsx-a11y/heading-has-content
+        <h2></h2>
+      )}
     </Container>
   );
 };

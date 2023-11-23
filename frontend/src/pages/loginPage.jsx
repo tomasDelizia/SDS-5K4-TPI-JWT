@@ -164,7 +164,15 @@ const LoginPage = () => {
         />
         <Button type="submit" variant="contained" sx={{ marginTop: "15px" }}>
           Iniciar Sesión
-        </Button>{" "}
+        </Button>
+        <Button
+          type="submit"
+          href="/registerPage"
+          variant="contained"
+          sx={{ marginTop: "15px" }}
+        >
+          Regístrate
+        </Button>
         {errorMessage && (
           <Typography sx={{ marginTop: "20px" }} variant="body2" color="error">
             {errorMessage}
